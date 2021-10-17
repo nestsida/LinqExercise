@@ -11,6 +11,44 @@ namespace LinqExercise
 
         static void Main(string[] args)
         {
+           
+           
+           Console.WriteLine(numbers.Sum());
+           Console.WriteLine(numbers.Average());
+
+
+
+            var order1 = numbers.OrderByDescending(x => x).ToList();
+            foreach (var x in order1)
+            {
+                Console.WriteLine(x);
+            }
+
+            var greaterThanSix = numbers.Where(x => x > 6).ToList();
+            greaterThanSix.ForEach(x => Console.WriteLine(x));
+
+            numbers.Take(4).OrderBy(x => x).ToList().ForEach(x =>Console.WriteLine(x));
+
+            numbers[3] = 30;
+            numbers.OrderByDescending(x => x).ToList().ForEach(x => Console.WriteLine(x));
+
+
+
+            var employees = CreateEmployees();
+            var firstname = employees.Where(name => name.FirstName.Contains('s') || name.FirstName.Contains('c')).OrderBy(x => x.FirstName);
+            foreach (var name in firstname)
+            {
+                Console.WriteLine(name.FullName);
+            }
+            var age26 = employees.Where(x => x.Age > 26).OrderBy(x => x.Age).ThenBy(x => x.FirstName).ToList();
+            foreach (var Age in age26)
+            {
+                Console.WriteLine(Age);
+            }
+
+            var newemployee = employees.Where(emp => emp.YearsOfExperience <= 10 && emp.Age > 35).ToList();
+            
+            
             /*
              * 
              * Complete every task using Method OR Query syntax.
@@ -34,7 +72,7 @@ namespace LinqExercise
             //Change the value at index 4 to your age, then print the numbers in decsending order
 
             // List of employees ***Do not remove this***
-            var employees = CreateEmployees();
+
 
             //Print all the employees' FullName properties to the console only if their FirstName starts with a C OR an S.
             //Order this in acesnding order by FirstName.
@@ -47,14 +85,14 @@ namespace LinqExercise
 
             //Add an employee to the end of the list without using employees.Add()
 
-            
+
             Console.WriteLine();
 
             Console.ReadLine();
         }
 
         #region CreateEmployeesMethod
-        private static List<Employee> CreateEmployees()
+        private static List<Employee> CreateEmployees(string v)
         {
             List<Employee> employees = new List<Employee>();
             employees.Add(new Employee("Cruz", "Sanchez", 25, 10));
